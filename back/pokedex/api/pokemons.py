@@ -15,7 +15,6 @@ class Pokemons(Resource):
         add_agent_query_search(request,query)
         print(pokemons[1]['stats'].keys())
         if moyens:
-            print("Here")
             pokemons_moyens={}
             keys=pokemons[0]['stats'].keys()
             for key in keys:

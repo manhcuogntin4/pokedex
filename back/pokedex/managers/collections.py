@@ -1,7 +1,7 @@
 import requests
 from playhouse.shortcuts import update_model_from_dict
 
-from pokedex.models.collections import User, PokemonCollection,Collection,UserColection
+from pokedex.models.collections import User, PokemonCollection,Collection,UserColection,Duel
 
 from pokedex.models.pokemon import Pokemon
 
@@ -55,3 +55,29 @@ def get_collection(collection_id):
     collection=Collection.get_or_none(id=collection_id)
     return collection
 
+def get_collections_user(user_id):
+    collections=Collection.select().join(UserColection).where(UserColection.user==user_id)
+    return collections
+
+def get_pokemon(pokemon_collection_id):
+    pokemon_collection=PokemonCollection.get_or_none(id=pokemon_collection_id)
+    return pokemon_collection
+
+def edit_pokemon_stats(id, stat, new_value):
+    pokemon = get_pokemon(id)
+    update = {stat: new_value}
+    pokemon.update(**update).execute()
+    return pokemon
+
+def delete_pokemon(id):
+    pokemon=get_pokemon(id)
+    n=pokemon.delete_instance()
+    return n
+
+def get_pokemons_collection(collection_id):
+    pokemons=PokemonCollection.select().join(Collection).where(Collection.id==collection_id)
+    return pokemons
+
+def create_duel(user1,user2,winner):
+    duel=Duel.create(user1=user1,user2=user2,winner=winner)
+    return duel

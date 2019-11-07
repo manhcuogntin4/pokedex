@@ -47,6 +47,11 @@ class PokemonCollection(CommonModel):
         return {"id": self.id, "name": self.name, "stats": self.stats, 'sprite_back': self.sprite_back,
                 'sprite_front': self.sprite_front}
 
+class Duel(CommonModel):
+    id=PrimaryKeyField()
+    user1=ForeignKeyField(User)
+    user2=ForeignKeyField(User)
+    winner=CharField()
 
 
 
@@ -54,4 +59,5 @@ with db:
     User.create_table(fail_silently=True)
     Collection.create_table(fail_silently=True)
     UserColection.create_table(fail_silently=True)
+    Duel.create_table(fail_silently=True)
     PokemonCollection.create_table(fail_silently=True)
