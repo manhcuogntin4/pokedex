@@ -1,6 +1,6 @@
 from .collections import get_collection,get_collections_user,get_pokemon,\
     get_pokemons_collection, edit_pokemon_stats,delete_pokemon,get_user,create_duel
-from .potion import create_potion,get_potion
+#from .potion import create_potion,get_potion
 
 class Pokemon:
     def __init__(self,id):

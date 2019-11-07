@@ -3,6 +3,7 @@ from flask import request
 from flask_restful import Resource
 from pokedex.managers.collections import add_user_pokemon,create_user,get_user,create_collection, add_user_collection, add_collection_pokemon,get_collections_user
 from pokedex.managers.conbat import Player,Pokemon,Potion
+from pokedex.managers.potion import use_potion_collection,use_potion_pokemon
 class Potions(Resource):
     def post(self):
         data = request.json
@@ -20,22 +21,10 @@ class PotionHeal(Resource):
         collection_id = request.args['collection']
         print("hello")
         all = request.args['all']
-        print(user_id,collection_id,all)
-        user=Player(user_id)
-        user.load_player_from_data_base()
-        collection = user.choose_collection_by_id(collection_id)
-        collection.get_pokemons()
-        potion=Potion(get_potion(potion_name).name,get_potion(potion_name).amount)
-        potion.name=get_potion(potion_name).name
-        potion.amount=get_potion(potion_name).amount
-
         if not all:
             pokemon_id=request.args['collection']
-            pokemon=collection.choose_pokemon_id(pokemon_id)
-            potion.use(pokemon)
-            pokemon.update()
+            use_potion_pokemon(user_id,collection_id,pokemon_id,potion_name)
         else:
-            potion.use_collection(collection)
-            collection.update_pokemons()
+            use_potion_collection(user_id,collection_id,potion_name)
 
 
