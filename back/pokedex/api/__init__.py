@@ -10,7 +10,7 @@ from .Analytic import Analytic
 from .collections import Users, PokemonCollection, UserCollection, Collections,User
 from .conbat import Match
 from .potion import Potions, PotionHeal
-from .generations import Generations
+from .generations import Generations,Generation
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
@@ -41,4 +41,5 @@ def register_api(app):
     api.add_resource(Potions,'/potions')
     api.add_resource(PotionHeal,'/potion/<potion_name>')
     api.add_resource(Generations, '/generations')
+    api.add_resource(Generation,'/generation/<generation_name>')
     app.register_blueprint(api_bp, url_prefix="/api/v1")
